@@ -44,12 +44,14 @@ class IsortCommand(sublime_plugin.TextCommand):
         return profile or {}
 
     def run(self, edit):
+
         this_view = self.get_view()
         current_positions = self.get_positions()
 
         this_contents = self.get_buffer_contents(this_view)
         settings = self.get_settings()
         sorted_imports = SortImports(
+            settings_path=this_view.file_name(),
             file_contents=this_contents,
             **settings
         ).output
