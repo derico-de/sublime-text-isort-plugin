@@ -149,8 +149,10 @@ def _update_with_config_file(file_path, sections, computed_settings):
             computed_settings['indent'] = "\t" * (indent_size and int(indent_size) or 1)
 
         max_line_length = settings.pop('max_line_length', "").strip()
-        if max_line_length:
+        if max_line_length and max_line_length != 'off':
             computed_settings['line_length'] = int(max_line_length)
+        else:
+            computed_settings['line_length'] = 200
 
     for key, value in itemsview(settings):
         access_key = key.replace('not_', '').lower()
